@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gharbazar - Browse Items (Page 3)</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <nav class="navbar">
+            <div class="logo-container" onclick="goToPage(1)">
+                <div class="logo-icon"></div>
+                <span>UsedMarket</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#" onclick="goToPage(1)">Home</a></li>
+                <li><a href="#" class="active" onclick="goToPage(3)">Browse Items</a></li>
+                <li><a href="#" onclick="goToPage(2)">Add Item</a></li>
+                <li><a href="#" onclick="goToPage(4)">About Us</a></li>
+            </ul>
+            <div class="search-cart">
+                <div class="search-bar-container">
+                    <input type="text" class="search-bar" placeholder="Search for items...">
+                    <span class="search-icon">🔍</span>
+                </div>
+                <button class="cart-btn">🛒 Cart (0)</button>
+            </div>
+        </nav>
+    </header>
+
+    <div class="main-container">
+        
+        <aside class="sidebar">
+            <div class="sidebar-title">Filters</div>
+            
+            <div class="filter-group">
+                <label class="filter-label">Category</label>
+                <select class="filter-select" id="categoryFilter">
+                    <option value="all">All Categories</option>
+                    <option value="electronics">Electronics</option>
+                    <option value="furniture">Furniture</option>
+                    <option value="bikes">Bikes</option>
+                    <option value="clothing">Clothing</option>
+                    <option value="books">Books</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label class="filter-label">Price Range</label>
+                <div class="price-inputs">
+                    <input type="number" class="price-input" id="minPrice" placeholder="Min Price">
+                    <input type="number" class="price-input" id="maxPrice" placeholder="Max Price">
+                </div>
+            </div>
+
+            <div class="filter-group">
+                <label class="filter-label">Condition</label>
+                <select class="filter-select" id="conditionFilter">
+                    <option value="all">All Conditions</option>
+                    <option value="like-new">Like New</option>
+                    <option value="good">Good</option>
+                    <option value="fair">Fair</option>
+                </select>
+            </div>
+
+            <button class="apply-btn" onclick="applyFilters()">Apply Filters</button>
+        </aside>
+
+        <main class="content-area">
+            <div class="content-header">
+                <div class="content-title">All Items</div>
+                <div class="sort-container">
+                    <span>Sort by:</span>
+                    <select class="sort-select" id="sortSelect" onchange="sortItems()">
+                        <option value="newest">Newest</option>
+                        <option value="price-low">Price: Low to High</option>
+                        <option value="price-high">Price: High to Low</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="products-grid" id="productsGrid">
+                
+                <div class="product-card" data-category="electronics" data-price="18000" data-condition="like-new">
+                   <img src="images/mobile.jpg" class="product-img" alt="iPhone 11">
+                    <div class="product-info">
+                        <div class="product-title">iPhone 11</div>
+                        <div class="product-price">Rs. 18,000</div>
+                        <div class="product-footer">
+                            <span class="product-condition">Like New</span>
+                            <button class="wishlist-btn" onclick="toggleWishlist(this)">♡</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="furniture" data-price="12000" data-condition="good">
+                    <img src="./images/sofaset.jpg" class="product-img" alt="Sofa Set">
+                    <div class="product-info">
+                        <div class="product-title">Sofa Set</div>
+                        <div class="product-price">Rs. 12,000</div>
+                        <div class="product-footer">
+                            <span class="product-condition">Good</span>
+                            <button class="wishlist-btn" onclick="toggleWishlist(this)">♡</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="electronics" data-price="22000" data-condition="like-new">
+                   <img src="./images/laptop.jpg" class="product-img" alt="Dell Laptop">
+                    <div class="product-info">
+                        <div class="product-title">Dell Laptop</div>
+                        <div class="product-price">Rs. 22,000</div>
+                        <div class="product-footer">
+                            <span class="product-condition">Like New</span>
+                            <button class="wishlist-btn" onclick="toggleWishlist(this)">♡</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="bikes" data-price="7500" data-condition="good">
+                   <img src="images/gearcycle.jpeg" class="product-img" alt="Gear Cycle">
+                    <div class="product-info">
+                        <div class="product-title">Gear Cycle</div>
+                        <div class="product-price">Rs. 7,500</div>
+                        <div class="product-footer">
+                            <span class="product-condition">Good</span>
+                            <button class="wishlist-btn" onclick="toggleWishlist(this)">♡</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="furniture" data-price="4000" data-condition="good">
+                    <img src="images/wooden.jpeg" class="product-img" alt="Wooden Table">
+                    <div class="product-info">
+                        <div class="product-title">Wooden Table</div>
+                        <div class="product-price">Rs. 4,000</div>
+                        <div class="product-footer">
+                            <span class="product-condition">Good</span>
+                            <button class="wishlist-btn" onclick="toggleWishlist(this)">♡</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="books" data-price="1500" data-condition="like-new">
+                    <img src="images/studybook.jpeg" class="product-img" alt="Study Books Set">
+                    <div class="product-info">
+                        <div class="product-title">Study Books Set</div>
+                        <div class="product-price">Rs. 1,500</div>
+                        <div class="product-footer">
+                            <span class="product-condition">Like New</span>
+                            <button class="wishlist-btn" onclick="toggleWishlist(this)">♡</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="electronics" data-price="9000" data-condition="good">
+                   <img src="images/washine.jpeg" class="product-img" alt="Washing Machine">
+                    <div class="product-info">
+                        <div class="product-title">Washing Machine</div>
+                        <div class="product-price">Rs. 9,000</div>
+                        <div class="product-footer">
+                            <span class="product-condition">Good</span>
+                            <button class="wishlist-btn" onclick="toggleWishlist(this)">♡</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="clothing" data-price="1200" data-condition="like-new">
+                    <img src="images/men's.jpeg" class="product-img" alt="Men's Jacket">
+                    <div class="product-info">
+                        <div class="product-title">Men's Jacket</div>
+                        <div class="product-price">Rs. 1,200</div>
+                        <div class="product-footer">
+                            <span class="product-condition">Like New</span>
+                            <button class="wishlist-btn" onclick="toggleWishlist(this)">♡</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <p>&copy; 2026 Gharbazar UsedMarket. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a> | 
+                <a href="#">Terms of Service</a> | 
+                <a href="#">Contact Support</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
