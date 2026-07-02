@@ -25,25 +25,28 @@
                     <input type="text" class="search-bar" placeholder="Search for items...">
                     <span class="search-icon">🔍</span>
                 </div>
-                <!-- Cart बटन थिच्दा toggleCart() फङ्सन चल्छ -->
                 <button class="cart-btn" id="cartBtn" onclick="toggleCart()">🛒 Cart (0)</button>
             </div>
         </nav>
     </header>
 
-    <!-- NEW: Cart Pop-up Modal (यो सुरुमा CSS बाट लुकेको हुन्छ) -->
+    <!-- Cart Sidebar/Modal Windows -->
     <div class="cart-modal" id="cartModal">
         <div class="cart-modal-header">
             <h3>Your Cart</h3>
             <button class="close-cart-btn" onclick="toggleCart()">&times;</button>
         </div>
         <div class="cart-items-container" id="cartItemsContainer">
-            <!-- थपिएका सामानहरू यहाँ dynamic रूपमा JavaScript ले देखाउँछ -->
             <p class="empty-cart-msg">Your cart is empty.</p>
         </div>
         <div class="cart-modal-footer">
             <div class="cart-total">Total: Rs. <span id="cartTotalAmount">0</span></div>
-            <button class="checkout-btn" onclick="processPayment()">Proceed to Payment</button>
+            <!-- पेमेन्ट अप्सनका बटनहरू कार्ट भित्रै राखिएका छन् -->
+            <div class="payment-options">
+                <button class="pay-btn cod-btn" onclick="processPayment('COD')">Cash on Delivery</button>
+                <button class="pay-btn online-btn" onclick="processPayment('ONLINE')">Online Payment</button>
+            </div>
+            <div id="orderStatusMessage" class="status-msg"></div>
         </div>
     </div>
 

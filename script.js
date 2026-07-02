@@ -1,13 +1,13 @@
-// 1. Navigation Redirect Simulation Function
+// 1. Navigation Redirect Simulation Function (Alerts Removed)
 function goToPage(pageNum) {
     if (pageNum === 1) {
-        alert("Redirecting to Page 1: Home Page...");
+        console.log("Redirecting to Page 1: Home Page...");
     } else if (pageNum === 3) {
         console.log("Already on Page 3: Browse Items View");
     } else if (pageNum === 2) {
-        alert("Redirecting to Page 2: Add/Post Item Page...");
+        console.log("Redirecting to Page 2: Add/Post Item Page...");
     } else if (pageNum === 4) {
-        alert("Redirecting to Page 4: Product Detail View...");
+        console.log("Redirecting to Page 4: Product Detail View...");
     }
 }
 
@@ -70,41 +70,38 @@ function sortItems() {
 }
 
 // ==========================================
-// ५. NEW: Cart, Delete and Payment System
+// ५. NO POP-UP: Cart, Delete and Payment System
 // ==========================================
-let cart = []; // कार्टमा थपिने सामानहरू राख्ने एरे (Array)
+let cart = [];
 
 // कार्ट बक्स खोल्ने र बन्द गर्ने फङ्सन
 function toggleCart() {
     const cartModal = document.getElementById('cartModal');
     cartModal.classList.toggle('open');
+    // स्टेटस म्यासेज क्लियर गर्ने जब कार्ट खोलिन्छ/बन्द गरिन्छ
+    document.getElementById('orderStatusMessage').innerText = '';
 }
 
-// सामान कार्टमा थप्ने फङ्सन
+// सामान कार्टमा थप्ने (No Alert Pop-up)
 function addToCart(title, price) {
-    // सामानलाई एउटा object बनाएर cart भित्र राख्ने
-    cart.push({ id: Date.now(), title: title, price: price });
-    
+    cart.push({ id: Date.now() + Math.random(), title: title, price: price });
     updateCartUI();
-    alert(`"${title}" has been added to your cart!`);
 }
 
-// कार्टबाट सामान हटाउने (Delete) फङ्सन
+// कार्टबाट सामान हटाउने
 function deleteCartItem(itemId) {
-    // मिल्ने ID लाई हटाइदिने
     cart = cart.filter(item => item.id !== itemId);
     updateCartUI();
 }
 
-// कार्टको लिस्ट र काउन्टर अपडेट गर्ने फङ्सन
+// कार्ट UI अपडेट गर्ने
 function updateCartUI() {
-    // माथि नेभबारको नम्बर अपडेट गर्ने
     document.getElementById('cartBtn').innerHTML = `🛒 Cart (${cart.length})`;
     
     const container = document.getElementById('cartItemsContainer');
     const totalAmountSpan = document.getElementById('cartTotalAmount');
     
-    container.innerHTML = ''; // पुरानो लिस्ट सफा गर्ने
+    container.innerHTML = '';
     
     if (cart.length === 0) {
         container.innerHTML = '<p class="empty-cart-msg">Your cart is empty.</p>';
@@ -114,7 +111,6 @@ function updateCartUI() {
     
     let total = 0;
     
-    // कार्टमा भएका सामानहरू पालैपालो विन्डोमा देखाउने
     cart.forEach(item => {
         total += item.price;
         
@@ -133,30 +129,27 @@ function updateCartUI() {
     totalAmountSpan.innerText = total.toLocaleString();
 }
 
-// Payment Option छान्ने फङ्सन
-function processPayment() {
+// पेमेन्ट प्रोसेस गर्ने फङ्सन (बटन थिच्दा सिधै म्यासेज देखाउने, No Prompts)
+function processPayment(method) {
+    const statusMsg = document.getElementById('orderStatusMessage');
+    
     if (cart.length === 0) {
-        alert("Your cart is empty! Please add items first.");
+        statusMsg.style.color = "red";
+        statusMsg.innerText = "Cart is empty! Please add items first.";
         return;
     }
     
-    // युजरलाई Cash वा Online रोज्न लगाउने prompt
-    const option = prompt("Select Payment Method:\nType '1' for Cash on Delivery\nType '2' for Online Payment (eSewa/Khalti)");
-    
-    if (option === '1') {
-        alert("Success! Order placed via Cash on Delivery. Thank you!");
-        clearCart();
-    } else if (option === '2') {
-        alert("Redirecting to Secure Online Payment Gateway (eSewa/Khalti)... Order Placed!");
-        clearCart();
-    } else {
-        alert("Invalid option! Order cancel भयो, कृपया सही विकल्प रोज्नुहोस्।");
+    statusMsg.style.color = "green";
+    if (method === 'COD') {
+        statusMsg.innerText = "Success! Ordered via Cash on Delivery.";
+    } else if (method === 'ONLINE') {
+        statusMsg.innerText = "Redirecting to Online Gateway... Order Placed!";
     }
-}
-
-// अर्डर सफल भएपछि कार्ट सफा गर्ने फङ्सन
-function clearCart() {
-    cart = [];
-    updateCartUI();
-    toggleCart(); // कार्ट विन्डो बन्द गर्ने
+    
+    // २ सेकेन्ड पछि कार्ट खाली गरेर विन्डो बन्द गर्ने
+    setTimeout(() => {
+        cart = [];
+        updateCartUI();
+        toggleCart();
+    }, 2000);
 }

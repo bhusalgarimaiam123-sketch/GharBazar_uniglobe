@@ -106,9 +106,7 @@ body {
     background-color: #f0f0f0;
 }
 
-/* ==========================================
-   NEW: Cart Modal Layout (पप-अप विन्डो)
-   ========================================== */
+/* Cart Modal Layout */
 .cart-modal {
     position: fixed;
     top: 75px;
@@ -119,12 +117,11 @@ body {
     border-radius: 8px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.15);
     z-index: 1000;
-    display: none; /* सुरुमा यो लुक्छ */
+    display: none; 
     flex-direction: column;
-    max-height: 450px;
+    max-height: 480px;
 }
 
-/* जब खुला हुन्छ यो class थपिन्छ */
 .cart-modal.open {
     display: flex;
 }
@@ -159,7 +156,6 @@ body {
     font-size: 0.95rem;
 }
 
-/* कार्ट भित्रको प्रत्येक सामानको डिजाइन */
 .cart-item {
     display: flex;
     justify-content: space-between;
@@ -183,7 +179,6 @@ body {
     color: #444;
 }
 
-/* Delete Button CSS */
 .delete-item-btn {
     background: none;
     border: none;
@@ -207,26 +202,47 @@ body {
     font-weight: bold;
     display: flex;
     justify-content: space-between;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
     font-size: 1rem;
 }
 
-/* Payment/Checkout Button */
-.checkout-btn {
-    width: 100%;
-    background-color: #28a745; /* हरियो रङ */
-    color: white;
+/* Payment Options Button Container */
+.payment-options {
+    display: flex;
+    gap: 10px;
+}
+
+.pay-btn {
+    flex: 1;
     border: none;
-    padding: 10px;
+    padding: 10px 5px;
     font-weight: bold;
     border-radius: 4px;
     cursor: pointer;
-    font-size: 0.95rem;
-    transition: background-color 0.2s;
+    font-size: 0.85rem;
+    color: white;
+    transition: opacity 0.2s;
 }
 
-.checkout-btn:hover {
-    background-color: #218838;
+.pay-btn:hover {
+    opacity: 0.9;
+}
+
+.cod-btn {
+    background-color: #6c757d; /* ग्रे रङ */
+}
+
+.online-btn {
+    background-color: #28a745; /* हरियो रङ */
+}
+
+/* Status Message Style instead of Popups */
+.status-msg {
+    margin-top: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-align: center;
+    min-height: 18px;
 }
 
 /* Main Container - Flex Box Model */
