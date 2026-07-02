@@ -90,12 +90,143 @@ body {
 
 .cart-btn {
     background: none;
-    border: none;
+    border: 1px solid #ddd;
+    padding: 6px 12px;
+    border-radius: 4px;
     font-size: 0.95rem;
     cursor: pointer;
     display: flex;
     align-items: center;
     gap: 5px;
+    font-weight: 600;
+    transition: background 0.2s;
+}
+
+.cart-btn:hover {
+    background-color: #f0f0f0;
+}
+
+/* ==========================================
+   NEW: Cart Modal Layout (पप-अप विन्डो)
+   ========================================== */
+.cart-modal {
+    position: fixed;
+    top: 75px;
+    right: 5%;
+    width: 340px;
+    background: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    z-index: 1000;
+    display: none; /* सुरुमा यो लुक्छ */
+    flex-direction: column;
+    max-height: 450px;
+}
+
+/* जब खुला हुन्छ यो class थपिन्छ */
+.cart-modal.open {
+    display: flex;
+}
+
+.cart-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 15px;
+    border-bottom: 1px solid #eee;
+    background: #fdfdfd;
+}
+
+.close-cart-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #888;
+}
+
+.cart-items-container {
+    padding: 10px 15px;
+    overflow-y: auto;
+    flex-grow: 1;
+}
+
+.empty-cart-msg {
+    color: #888;
+    text-align: center;
+    padding: 20px 0;
+    font-size: 0.95rem;
+}
+
+/* कार्ट भित्रको प्रत्येक सामानको डिजाइन */
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #f5f5f5;
+}
+
+.cart-item-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.cart-item-title {
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.cart-item-price {
+    font-size: 0.85rem;
+    color: #444;
+}
+
+/* Delete Button CSS */
+.delete-item-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.1rem;
+    padding: 4px;
+    transition: transform 0.1s;
+}
+
+.delete-item-btn:hover {
+    transform: scale(1.15);
+}
+
+.cart-modal-footer {
+    padding: 12px 15px;
+    border-top: 1px solid #eee;
+    background: #fafafa;
+}
+
+.cart-total {
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 1rem;
+}
+
+/* Payment/Checkout Button */
+.checkout-btn {
+    width: 100%;
+    background-color: #28a745; /* हरियो रङ */
+    color: white;
+    border: none;
+    padding: 10px;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: background-color 0.2s;
+}
+
+.checkout-btn:hover {
+    background-color: #218838;
 }
 
 /* Main Container - Flex Box Model */
@@ -234,26 +365,12 @@ body {
     box-shadow: 0 5px 15px rgba(0,0,0,0.05);
 }
 
-/* Wireframe Crossed Lines Placeholder Image Box */
-.product-image-box {
+.product-img {
     width: 100%;
     height: 180px;
-    background-color: #fafafa;
+    object-fit: cover;
     border-bottom: 1px solid #e0e0e0;
-    position: relative;
 }
-
-.product-image-box::before, .product-image-box::after {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 1px;
-    background-color: #e8e8e8;
-    top: 50%;
-    left: 0;
-}
-.product-image-box::before { transform: rotate(28deg); }
-.product-image-box::after { transform: rotate(-28deg); }
 
 .product-info {
     padding: 12px;
@@ -290,6 +407,30 @@ body {
     background: #f0f0f0;
     padding: 2px 6px;
     border-radius: 3px;
+    flex-shrink: 0;
+}
+
+/* Add to Cart Button Design */
+.add-to-cart-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+    margin-left: auto;
+    margin-right: 5px;
+}
+
+.add-to-cart-btn:hover {
+    background-color: #0056b3;
+}
+
+.add-to-cart-btn:active {
+    transform: scale(0.95);
 }
 
 .wishlist-btn {
@@ -299,10 +440,31 @@ body {
     font-size: 1.1rem;
     color: #ccc;
     transition: color 0.2s;
+    flex-shrink: 0;
 }
 
 .wishlist-btn.active, .wishlist-btn:hover {
     color: #ff3b30;
+}
+
+/* Footer Section */
+.main-footer {
+    background: #fff;
+    border-top: 1px solid #e0e0e0;
+    padding: 20px 0;
+    margin-top: 40px;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.footer-links {
+    margin-top: 5px;
+}
+
+.footer-links a {
+    color: #444;
+    text-decoration: none;
 }
 
 /* Media Queries for Full Responsiveness */
@@ -321,6 +483,11 @@ body {
     }
     .products-grid {
         grid-template-columns: repeat(2, 1fr);
+    }
+    .cart-modal {
+        right: 5%;
+        width: 90%;
+        max-width: 340px;
     }
 }
 

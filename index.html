@@ -25,16 +25,31 @@
                     <input type="text" class="search-bar" placeholder="Search for items...">
                     <span class="search-icon">🔍</span>
                 </div>
-                <button class="cart-btn">🛒 Cart (0)</button>
+                <!-- Cart बटन थिच्दा toggleCart() फङ्सन चल्छ -->
+                <button class="cart-btn" id="cartBtn" onclick="toggleCart()">🛒 Cart (0)</button>
             </div>
         </nav>
     </header>
 
+    <!-- NEW: Cart Pop-up Modal (यो सुरुमा CSS बाट लुकेको हुन्छ) -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-modal-header">
+            <h3>Your Cart</h3>
+            <button class="close-cart-btn" onclick="toggleCart()">&times;</button>
+        </div>
+        <div class="cart-items-container" id="cartItemsContainer">
+            <!-- थपिएका सामानहरू यहाँ dynamic रूपमा JavaScript ले देखाउँछ -->
+            <p class="empty-cart-msg">Your cart is empty.</p>
+        </div>
+        <div class="cart-modal-footer">
+            <div class="cart-total">Total: Rs. <span id="cartTotalAmount">0</span></div>
+            <button class="checkout-btn" onclick="processPayment()">Proceed to Payment</button>
+        </div>
+    </div>
+
     <div class="main-container">
-        
         <aside class="sidebar">
             <div class="sidebar-title">Filters</div>
-            
             <div class="filter-group">
                 <label class="filter-label">Category</label>
                 <select class="filter-select" id="categoryFilter">
@@ -46,7 +61,6 @@
                     <option value="books">Books</option>
                 </select>
             </div>
-
             <div class="filter-group">
                 <label class="filter-label">Price Range</label>
                 <div class="price-inputs">
@@ -54,7 +68,6 @@
                     <input type="number" class="price-input" id="maxPrice" placeholder="Max Price">
                 </div>
             </div>
-
             <div class="filter-group">
                 <label class="filter-label">Condition</label>
                 <select class="filter-select" id="conditionFilter">
@@ -64,7 +77,6 @@
                     <option value="fair">Fair</option>
                 </select>
             </div>
-
             <button class="apply-btn" onclick="applyFilters()">Apply Filters</button>
         </aside>
 
@@ -82,7 +94,7 @@
             </div>
 
             <div class="products-grid" id="productsGrid">
-                
+                <!-- Product 1 -->
                 <div class="product-card" data-category="electronics" data-price="18000" data-condition="like-new">
                    <img src="images/mobile.jpg" class="product-img" alt="iPhone 11">
                     <div class="product-info">
@@ -90,11 +102,13 @@
                         <div class="product-price">Rs. 18,000</div>
                         <div class="product-footer">
                             <span class="product-condition">Like New</span>
+                            <button class="add-to-cart-btn" onclick="addToCart('iPhone 11', 18000)">Add to Cart</button>
                             <button class="wishlist-btn" onclick="toggleWishlist(this)">♡</button>
                         </div>
                     </div>
                 </div>
 
+                <!-- Product 2 -->
                 <div class="product-card" data-category="furniture" data-price="12000" data-condition="good">
                     <img src="./images/sofaset.jpg" class="product-img" alt="Sofa Set">
                     <div class="product-info">
@@ -102,11 +116,13 @@
                         <div class="product-price">Rs. 12,000</div>
                         <div class="product-footer">
                             <span class="product-condition">Good</span>
+                            <button class="add-to-cart-btn" onclick="addToCart('Sofa Set', 12000)">Add to Cart</button>
                             <button class="wishlist-btn" onclick="toggleWishlist(this)">♡</button>
                         </div>
                     </div>
                 </div>
 
+                <!-- Product 3 -->
                 <div class="product-card" data-category="electronics" data-price="22000" data-condition="like-new">
                    <img src="./images/laptop.jpg" class="product-img" alt="Dell Laptop">
                     <div class="product-info">
@@ -114,11 +130,13 @@
                         <div class="product-price">Rs. 22,000</div>
                         <div class="product-footer">
                             <span class="product-condition">Like New</span>
+                            <button class="add-to-cart-btn" onclick="addToCart('Dell Laptop', 22000)">Add to Cart</button>
                             <button class="wishlist-btn" onclick="toggleWishlist(this)">♡</button>
                         </div>
                     </div>
                 </div>
 
+                <!-- Product 4 -->
                 <div class="product-card" data-category="bikes" data-price="7500" data-condition="good">
                    <img src="images/gearcycle.jpeg" class="product-img" alt="Gear Cycle">
                     <div class="product-info">
@@ -126,11 +144,13 @@
                         <div class="product-price">Rs. 7,500</div>
                         <div class="product-footer">
                             <span class="product-condition">Good</span>
+                            <button class="add-to-cart-btn" onclick="addToCart('Gear Cycle', 7500)">Add to Cart</button>
                             <button class="wishlist-btn" onclick="toggleWishlist(this)">♡</button>
                         </div>
                     </div>
                 </div>
 
+                <!-- Product 5 -->
                 <div class="product-card" data-category="furniture" data-price="4000" data-condition="good">
                     <img src="images/wooden.jpeg" class="product-img" alt="Wooden Table">
                     <div class="product-info">
@@ -138,11 +158,13 @@
                         <div class="product-price">Rs. 4,000</div>
                         <div class="product-footer">
                             <span class="product-condition">Good</span>
+                            <button class="add-to-cart-btn" onclick="addToCart('Wooden Table', 4000)">Add to Cart</button>
                             <button class="wishlist-btn" onclick="toggleWishlist(this)">♡</button>
                         </div>
                     </div>
                 </div>
 
+                <!-- Product 6 -->
                 <div class="product-card" data-category="books" data-price="1500" data-condition="like-new">
                     <img src="images/studybook.jpeg" class="product-img" alt="Study Books Set">
                     <div class="product-info">
@@ -150,11 +172,13 @@
                         <div class="product-price">Rs. 1,500</div>
                         <div class="product-footer">
                             <span class="product-condition">Like New</span>
+                            <button class="add-to-cart-btn" onclick="addToCart('Study Books Set', 1500)">Add to Cart</button>
                             <button class="wishlist-btn" onclick="toggleWishlist(this)">♡</button>
                         </div>
                     </div>
                 </div>
 
+                <!-- Product 7 -->
                 <div class="product-card" data-category="electronics" data-price="9000" data-condition="good">
                    <img src="images/washine.jpeg" class="product-img" alt="Washing Machine">
                     <div class="product-info">
@@ -162,11 +186,13 @@
                         <div class="product-price">Rs. 9,000</div>
                         <div class="product-footer">
                             <span class="product-condition">Good</span>
+                            <button class="add-to-cart-btn" onclick="addToCart('Washing Machine', 9000)">Add to Cart</button>
                             <button class="wishlist-btn" onclick="toggleWishlist(this)">♡</button>
                         </div>
                     </div>
                 </div>
 
+                <!-- Product 8 -->
                 <div class="product-card" data-category="clothing" data-price="1200" data-condition="like-new">
                     <img src="images/men's.jpeg" class="product-img" alt="Men's Jacket">
                     <div class="product-info">
@@ -174,11 +200,11 @@
                         <div class="product-price">Rs. 1,200</div>
                         <div class="product-footer">
                             <span class="product-condition">Like New</span>
+                            <button class="add-to-cart-btn" onclick="addToCart('Men\'s Jacket', 1200)">Add to Cart</button>
                             <button class="wishlist-btn" onclick="toggleWishlist(this)">♡</button>
                         </div>
                     </div>
                 </div>
-
             </div>
         </main>
     </div>
